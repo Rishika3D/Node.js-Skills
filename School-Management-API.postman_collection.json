@@ -1,0 +1,222 @@
+{
+  "info": {
+    "name": "School Management API",
+    "description": "REST API for managing schools with location-based sorting",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/health",
+          "host": ["{{base_url}}"],
+          "path": ["health"]
+        },
+        "description": "Verify the server is running and healthy"
+      },
+      "response": []
+    },
+    {
+      "name": "Add School",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Lincoln High School\",\n  \"address\": \"123 Main St, Springfield, IL 62701\",\n  \"latitude\": 39.7817,\n  \"longitude\": -89.6501\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/addSchool",
+          "host": ["{{base_url}}"],
+          "path": ["api", "addSchool"]
+        },
+        "description": "Add a new school to the database"
+      },
+      "response": []
+    },
+    {
+      "name": "Add School - Example 2",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Central Middle School\",\n  \"address\": \"456 Oak Ave, Springfield, IL 62702\",\n  \"latitude\": 39.7892,\n  \"longitude\": -89.6432\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/addSchool",
+          "host": ["{{base_url}}"],
+          "path": ["api", "addSchool"]
+        },
+        "description": "Add another school to the database"
+      },
+      "response": []
+    },
+    {
+      "name": "Add School - Example 3",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"North Elementary School\",\n  \"address\": \"789 Pine Rd, Springfield, IL 62703\",\n  \"latitude\": 39.8045,\n  \"longitude\": -89.6789\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/addSchool",
+          "host": ["{{base_url}}"],
+          "path": ["api", "addSchool"]
+        },
+        "description": "Add a third school to the database"
+      },
+      "response": []
+    },
+    {
+      "name": "List Schools - User at Center",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/listSchools?latitude=39.7817&longitude=-89.6501",
+          "host": ["{{base_url}}"],
+          "path": ["api", "listSchools"],
+          "query": [
+            {
+              "key": "latitude",
+              "value": "39.7817",
+              "description": "User's latitude"
+            },
+            {
+              "key": "longitude",
+              "value": "-89.6501",
+              "description": "User's longitude"
+            }
+          ]
+        },
+        "description": "Get all schools sorted by proximity to user's location"
+      },
+      "response": []
+    },
+    {
+      "name": "List Schools - User at Different Location",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/listSchools?latitude=39.8&longitude=-89.65",
+          "host": ["{{base_url}}"],
+          "path": ["api", "listSchools"],
+          "query": [
+            {
+              "key": "latitude",
+              "value": "39.8",
+              "description": "User's latitude"
+            },
+            {
+              "key": "longitude",
+              "value": "-89.65",
+              "description": "User's longitude"
+            }
+          ]
+        },
+        "description": "Get schools sorted by proximity from a different user location"
+      },
+      "response": []
+    },
+    {
+      "name": "List Schools - Invalid Coordinates",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/listSchools?latitude=95&longitude=-89.65",
+          "host": ["{{base_url}}"],
+          "path": ["api", "listSchools"],
+          "query": [
+            {
+              "key": "latitude",
+              "value": "95",
+              "description": "Invalid latitude (must be between -90 and 90)"
+            },
+            {
+              "key": "longitude",
+              "value": "-89.65"
+            }
+          ]
+        },
+        "description": "Test validation error for invalid latitude"
+      },
+      "response": []
+    },
+    {
+      "name": "Add School - Missing Field",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Test School\",\n  \"address\": \"123 Test St\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/addSchool",
+          "host": ["{{base_url}}"],
+          "path": ["api", "addSchool"]
+        },
+        "description": "Test validation error for missing required fields"
+      },
+      "response": []
+    },
+    {
+      "name": "Add School - Invalid Data Type",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Test School\",\n  \"address\": \"123 Test St\",\n  \"latitude\": \"not a number\",\n  \"longitude\": -89.65\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/addSchool",
+          "host": ["{{base_url}}"],
+          "path": ["api", "addSchool"]
+        },
+        "description": "Test validation error for invalid data type"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ]
+}
