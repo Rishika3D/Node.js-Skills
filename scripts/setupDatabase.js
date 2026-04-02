@@ -17,11 +17,11 @@ async function setupDatabase() {
 
     // Create database if it doesn't exist
     const dbName = process.env.DB_NAME;
-    await connection.execute(`CREATE DATABASE IF NOT EXISTS ${dbName}`);
+    await connection.query(`CREATE DATABASE IF NOT EXISTS ${dbName}`);
     console.log(`Database '${dbName}' created or already exists`);
 
     // Switch to the database
-    await connection.execute(`USE ${dbName}`);
+    await connection.query(`USE ${dbName}`);
     console.log(`Using database '${dbName}'`);
 
     // Create schools table
@@ -38,7 +38,7 @@ async function setupDatabase() {
       )
     `;
 
-    await connection.execute(createTableQuery);
+    await connection.query(createTableQuery);
     console.log('Schools table created or already exists');
 
     // Insert sample data
